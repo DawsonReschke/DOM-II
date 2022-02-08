@@ -19,6 +19,8 @@ Event Listeners:
     
 
 */
+
+// modal html
 let modalText = '<section id="added-modal" class="added-modal review"> <div class="title"> <h1>Contact Forum</h1> </div> <div class="user-interface"> <div class="forum"> <input type="text" placeholder="email" id="userEmail"> <textarea name="userTextData" id="user-text-data" cols="30" rows="5"></textarea> </div> <div class="buttons"> <form action=""> <input type="radio" name="toggle" id="review" value="review" class="active" checked> <label for="" class="active">review</label> <br><br> <input type="radio" name="toggle" id="complaint" value="complaint" class="inactive"> <label for="" class="inactive">complaint</label> </form> </div> </div> <div class="sub"> <input type="submit" name="" id="added-modal-submit"> </div> </section>'; 
 let navButtons = document.querySelectorAll('nav a'); 
 let locationImages = document.querySelectorAll('img'); 
@@ -45,6 +47,7 @@ const copyToClip = (event)=>{
       });
 }
 
+//create model and add some events to the elements
 const openModel = () =>{
     console.log('the button was clicked'); 
     let modal = document.querySelector('#added-modal'); 
@@ -86,6 +89,7 @@ const redirect = () =>{
     window.location.href = "https://www.google.com/maps";
 }
 
+// set the set the images to blur when not hovered over, and to unblur when hovered over, as well as double clicking the images should open a google maps page. 
 locationImages.forEach((val)=>{
     val.setAttribute('class','blur'); 
     val.addEventListener('mouseenter',()=>focus(event))
@@ -93,16 +97,24 @@ locationImages.forEach((val)=>{
     val.addEventListener('dblclick',()=>redirect(event)); 
 })
 
+// now when you press contacts you arent redirected to /#
+navButtons.forEach((val)=>val.addEventListener('click',(event)=>event.preventDefault())); 
 
+// change the color of the cheeze icon in top left
 document.addEventListener('scroll', ()=> {
     var randomColor = Math.floor(Math.random()*16777215).toString(16);
     let icon = document.querySelector('#cheeze-path');
     icon.setAttribute('fill',`#${randomColor}`)
 });
+
+
+// remove the modal (if open) when `Escape` key is pressed
 document.addEventListener('keydown',()=>removeModal(event))
+
+// create modal (if not already) once pressed on the contact link
 contactLink.addEventListener('click',openModel);
-// create and add modal to the html, set display : block, id : modal 
-// save a pointer to this modal for later use. 
+
+// Alert the user any time a change has been made to the main container html
 const alertCallback = () =>{
     alert('A change has been made to the DOM!')
 }
